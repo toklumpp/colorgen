@@ -3,15 +3,31 @@ Copyright (c) 2025 Tobias Klumpp (https://www.toklumpp.net/)
 SPDX-License-Identifier: MIT
 */
 "use strict";
-import { useState } from "https://esm.sh/react"
+import { useReducer } from "https://esm.sh/react"
 import { createH1, createForm, createInput, createLabel, createP } from "./react-shortcuts.js";
 
-export function App() {
-    const [hue, setHue] = useState(0);
-    const [chroma, setChroma] = useState(0);
-    const [luminance, setLuminance] = useState(0);
-    const [saturation, setSaturation] = useState(0);
+const initialColor = {
+    hue: 0,
+    chroma: 0,
+    luminance: 0,
+    saturation: 0,
+};
 
+const colorReducer = (currentColor, newColorProperty) => {
+    if (newColorProperty.key == "hue") {
+        return {
+            hue: newColorProperty.value,
+            chroma: currentColor.chroma,
+            luminance: currentColor.luminance,
+            saturation: currentColor.saturation
+        };
+    } else {
+        return currentColor;
+    }
+};
+
+export function App() {
+    const [color, changeColorProperty] = useReducer(colorReducer, initialColor);
     return (
         createForm({},
             createH1({},
@@ -20,41 +36,41 @@ export function App() {
             createLabel({},
                 "Hue: ",
                 createInput({
-                    type: "number", value: hue, onChange: (e) => setHue(e.target.value)
+                    type: "number", value: color.hue, onChange: (e) => changeColorProperty({ key: "hue", value: e.target.value })
                 }),
                 createP({},
                     "Hue: ",
-                    hue
+                    color.hue
                 )
             ),
             createLabel({},
                 "Chroma: ",
                 createInput({
-                    type: "number", value: chroma, onChange: (e) => setChroma(e.target.value)
+                    type: "number", value: color.chroma, onChange: (e) => changeColorProperty({ key: "chroma", value: e.target.value })
                 }),
                 createP({},
                     "Chroma: ",
-                    chroma
+                    color.chroma
                 )
             ),
             createLabel({},
                 "Luminance: ",
                 createInput({
-                    type: "number", value: luminance, onChange: (e) => setLuminance(e.target.value)
+                    type: "number", value: color.luminance, onChange: (e) => changeColorProperty({ key: "luminance", value: e.target.value })
                 }),
                 createP({},
                     "Luminance: ",
-                    luminance
+                    color.luminance
                 )
             ),
             createLabel({},
                 "Saturation: ",
                 createInput({
-                    type: "number", value: saturation, onChange: (e) => setSaturation(e.target.value)
+                    type: "number", value: color.saturation, onChange: (e) => changeColorProperty({ key: "saturation", value: e.target.value })
                 }),
                 createP({},
                     "Saturation: ",
-                    saturation
+                    color.saturation
                 )
             )
         )
