@@ -1,6 +1,6 @@
 /*
-Copyright(c) 2025 Tobias Klumpp (https://www.toklumpp.net/)
-SPDX - License - Identifier: MIT
+Copyright (c) 2025 Tobias Klumpp (https://www.toklumpp.net/)
+SPDX-License-Identifier: MIT
 */
 "use strict";
 import { useState } from "https://esm.sh/react"
@@ -12,7 +12,8 @@ export function App() {
     return (
         createForm({},
             createH1({},
-                "Color Scheme Generator"),
+                "Color Scheme Generator"
+            ),
             createLabel({},
                 "Hue: ",
                 createInput({
@@ -25,16 +26,5 @@ export function App() {
 
             )
         )
-        /*
-        <label>Enter your name:
-            <input
-                type="number"
-                value={hue}
-                onChange={(e) => setHue(e.target.value)}
-            />
-        </label>
-        <p>Hue: {hue}</p>
-    </form>
-    */
     );
 }

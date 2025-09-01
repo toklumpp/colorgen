@@ -1,6 +1,6 @@
 /*
-Copyright(c) 2025 Tobias Klumpp (https://www.toklumpp.net/)
-SPDX - License - Identifier: MIT
+Copyright (c) 2025 Tobias Klumpp (https://www.toklumpp.net/)
+SPDX-License-Identifier: MIT
 */
 "use strict";
 import React from "https://esm.sh/react"
