@@ -14,16 +14,28 @@ const initialColor = {
 };
 
 const colorReducer = (currentColor, newColorProperty) => {
-    if (newColorProperty.key == "hue") {
-        return {
-            hue: newColorProperty.value,
-            chroma: currentColor.chroma,
-            luminance: currentColor.luminance,
-            saturation: currentColor.saturation
-        };
-    } else {
-        return currentColor;
+    let hue = currentColor.hue;
+    let chroma = currentColor.chroma;
+    let luminance = currentColor.luminance;
+    let saturation = currentColor.saturation;
+    switch (newColorProperty.key) {
+        case "hue":
+            hue = newColorProperty.value;
+            break;
+        case "chroma":
+            chroma = newColorProperty.value;
+            saturation = chroma / luminance;
+            break;
+        case "luminance":
+            luminance = newColorProperty.value;
+            saturation = chroma / luminance;
+            break;
+        case "saturation":
+            saturation = newColorProperty.value;
+            chroma = saturation * luminance;
+            break;
     }
+    return { hue: hue, chroma: chroma, luminance: luminance, saturation: saturation };
 };
 
 export function App() {
