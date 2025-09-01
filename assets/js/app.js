@@ -10,6 +10,7 @@ export function App() {
     const [hue, setHue] = useState(0);
     const [chroma, setChroma] = useState(0);
     const [luminance, setLuminance] = useState(0);
+    const [saturation, setSaturation] = useState(0);
 
     return (
         createForm({},
@@ -44,6 +45,16 @@ export function App() {
                 createP({},
                     "Luminance: ",
                     luminance
+                )
+            ),
+            createLabel({},
+                "Saturation: ",
+                createInput({
+                    type: "number", value: saturation, onChange: (e) => setSaturation(e.target.value)
+                }),
+                createP({},
+                    "Saturation: ",
+                    saturation
                 )
             )
         )
