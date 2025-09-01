@@ -24,11 +24,11 @@ const colorReducer = (currentColor, newColorProperty) => {
             break;
         case "chroma":
             chroma = newColorProperty.value;
-            saturation = 100 * chroma / luminance;
+            saturation = 50 * chroma / luminance;
             break;
         case "luminance":
             luminance = newColorProperty.value;
-            saturation = 100 * chroma / luminance;
+            saturation = 50 * chroma / luminance;
             break;
         case "saturation":
             saturation = newColorProperty.value;
