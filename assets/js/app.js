@@ -11,6 +11,9 @@ const initialColor = {
     chroma: 0,
     luminance: 0,
     saturation: 0,
+    value: 0,
+    blackness: 0,
+    whiteness: 0
 };
 
 const colorReducer = (currentColor, newColorProperty) => {
@@ -18,6 +21,9 @@ const colorReducer = (currentColor, newColorProperty) => {
     let chroma = currentColor.chroma;
     let luminance = currentColor.luminance;
     let saturation = currentColor.saturation;
+    let value = currentColor.value;
+    let blackness = currentColor.blackness;
+    let whiteness = currentColor.whiteness;
     switch (newColorProperty.key) {
         case "hue":
             hue = newColorProperty.value;
@@ -25,17 +31,31 @@ const colorReducer = (currentColor, newColorProperty) => {
         case "chroma":
             chroma = newColorProperty.value;
             saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
+            value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
+            blackness = 100 - value;
+            whiteness = value - saturation;
             break;
         case "luminance":
             luminance = newColorProperty.value;
             saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
+            value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
+            blackness = 100 - value;
+            whiteness = value - saturation;
             break;
         case "saturation":
             saturation = newColorProperty.value;
-            chroma = saturation * luminance / 100;
+            break;
+        case "value":
+            value = newColorProperty.value;
+            break;
+        case "blackness":
+            value = newColorProperty.blackness;
+            break;
+        case "whiteness":
+            value = newColorProperty.whiteness;
             break;
     }
-    return { hue: hue, chroma: chroma, luminance: luminance, saturation: saturation };
+    return { hue: hue, chroma: chroma, luminance: luminance, saturation: saturation, value: value, whiteness: whiteness, blackness: blackness };
 };
 
 export function App() {
@@ -83,6 +103,36 @@ export function App() {
                 createP({},
                     "Saturation: ",
                     color.saturation
+                )
+            ),
+            createLabel({},
+                "Value: ",
+                createInput({
+                    type: "number", value: color.value, onChange: (e) => changeColorProperty({ key: "value", value: e.target.value })
+                }),
+                createP({},
+                    "Value: ",
+                    color.value
+                )
+            ),
+            createLabel({},
+                "Whiteness: ",
+                createInput({
+                    type: "number", value: color.whiteness, onChange: (e) => changeColorProperty({ key: "whiteness", value: e.target.value })
+                }),
+                createP({},
+                    "Whiteness: ",
+                    color.whiteness
+                )
+            ),
+            createLabel({},
+                "Blackness: ",
+                createInput({
+                    type: "number", value: color.blackness, onChange: (e) => changeColorProperty({ key: "blackness", value: e.target.value })
+                }),
+                createP({},
+                    "Blackness: ",
+                    color.blackness
                 )
             )
         )
