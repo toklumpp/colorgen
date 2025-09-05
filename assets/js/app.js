@@ -12,7 +12,7 @@ const html = htm.bind(React.createElement);
 const initialColor = {
     hue: 0,
     chroma: 0,
-    luminance: 0,
+    lightness: 0,
     saturation: 0,
     value: 0,
     blackness: 0,
@@ -22,7 +22,7 @@ const initialColor = {
 const colorReducer = (currentColor, newColorProperty) => {
     let hue = currentColor.hue;
     let chroma = currentColor.chroma;
-    let luminance = currentColor.luminance;
+    let lightness = currentColor.lightness;
     let saturation = currentColor.saturation;
     let value = currentColor.value;
     let blackness = currentColor.blackness;
@@ -33,15 +33,15 @@ const colorReducer = (currentColor, newColorProperty) => {
             break;
         case "chroma":
             chroma = newColorProperty.value;
-            saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
-            value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
+            saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
+            value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
             blackness = 100 - value;
             whiteness = value - saturation;
             break;
-        case "luminance":
-            luminance = newColorProperty.value;
-            saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
-            value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(luminance, 2));
+        case "lightness":
+            lightness = newColorProperty.value;
+            saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
+            value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
             blackness = 100 - value;
             whiteness = value - saturation;
             break;
@@ -58,7 +58,7 @@ const colorReducer = (currentColor, newColorProperty) => {
             value = newColorProperty.whiteness;
             break;
     }
-    return { hue: hue, chroma: chroma, luminance: luminance, saturation: saturation, value: value, whiteness: whiteness, blackness: blackness };
+    return { hue: hue, chroma: chroma, lightness: lightness, saturation: saturation, value: value, whiteness: whiteness, blackness: blackness };
 };
 
 export function App() {
@@ -81,10 +81,10 @@ export function App() {
                 </p>
             </label>
             <label>
-                Luminance:
-                <input type="number" value=${color.luminance} onChange=${(e) => changeColorProperty({ key: "luminance", value: e.target.value })} />
+                lightness:
+                <input type="number" value=${color.lightness} onChange=${(e) => changeColorProperty({ key: "lightness", value: e.target.value })} />
                 <p>
-                    Luminance: ${color.luminance}
+                    lightness: ${color.lightness}
                 </p>
             </label>
             <label>
