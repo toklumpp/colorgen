@@ -15,8 +15,8 @@ const initialColor = {
     lightness: 0,
     saturation: 0,
     value: 0,
-    blackness: 0,
-    whiteness: 0
+    shade: 0,
+    tint: 0
 };
 
 const colorReducer = (currentColor, newColorProperty) => {
@@ -25,8 +25,8 @@ const colorReducer = (currentColor, newColorProperty) => {
     let lightness = currentColor.lightness;
     let saturation = currentColor.saturation;
     let value = currentColor.value;
-    let blackness = currentColor.blackness;
-    let whiteness = currentColor.whiteness;
+    let shade = currentColor.shade;
+    let tint = currentColor.tint;
     switch (newColorProperty.key) {
         case "hue":
             hue = newColorProperty.value;
@@ -35,15 +35,15 @@ const colorReducer = (currentColor, newColorProperty) => {
             chroma = newColorProperty.value;
             saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
             value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
-            blackness = 100 - value;
-            whiteness = value - saturation;
+            shade = 100 - value;
+            tint = value - saturation;
             break;
         case "lightness":
             lightness = newColorProperty.value;
             saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
             value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
-            blackness = 100 - value;
-            whiteness = value - saturation;
+            shade = 100 - value;
+            tint = value - saturation;
             break;
         case "saturation":
             saturation = newColorProperty.value;
@@ -51,14 +51,14 @@ const colorReducer = (currentColor, newColorProperty) => {
         case "value":
             value = newColorProperty.value;
             break;
-        case "blackness":
-            value = newColorProperty.blackness;
+        case "shade":
+            value = newColorProperty.shade;
             break;
-        case "whiteness":
-            value = newColorProperty.whiteness;
+        case "tint":
+            value = newColorProperty.tint;
             break;
     }
-    return { hue: hue, chroma: chroma, lightness: lightness, saturation: saturation, value: value, whiteness: whiteness, blackness: blackness };
+    return { hue: hue, chroma: chroma, lightness: lightness, saturation: saturation, value: value, tint: tint, shade: shade };
 };
 
 export function App() {
@@ -81,10 +81,10 @@ export function App() {
                 </p>
             </label>
             <label>
-                lightness:
+                Lightness:
                 <input type="number" value=${color.lightness} onChange=${(e) => changeColorProperty({ key: "lightness", value: e.target.value })} />
                 <p>
-                    lightness: ${color.lightness}
+                    Lightness: ${color.lightness}
                 </p>
             </label>
             <label>
@@ -102,17 +102,17 @@ export function App() {
                 </p>
             </label>
             <label>
-                Whiteness:
-                <input type="number" value=${color.whiteness} onChange=${(e) => changeColorProperty({ key: "whiteness", value: e.target.value })} />
+                Tint:
+                <input type="number" value=${color.tint} onChange=${(e) => changeColorProperty({ key: "tint", value: e.target.value })} />
                 <p>
-                    Whiteness: ${color.whiteness}
+                    Tint: ${color.tint}
                 </p>
             </label>
             <label>
-                Blackness:
-                <input type="number" value=${color.blackness} onChange=${(e) => changeColorProperty({ key: "blackness", value: e.target.value })} />
+                Shade:
+                <input type="number" value=${color.shade} onChange=${(e) => changeColorProperty({ key: "shade", value: e.target.value })} />
                 <p>
-                    Blackness: ${color.blackness}
+                    Shade: ${color.shade}
                 </p>
             </label>
         </form>
