@@ -33,20 +33,21 @@ const colorReducer = (currentColor, newColorProperty) => {
             break;
         case "chroma":
             chroma = newColorProperty.value;
-            saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
+            saturation = 100 * chroma / lightness;
             value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
             shade = 100 - value;
             tint = value - saturation;
             break;
         case "lightness":
             lightness = newColorProperty.value;
-            saturation = 100 * chroma / Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
+            saturation = 100 * chroma / lightness;
             value = Math.sqrt(Math.pow(chroma, 2) + Math.pow(lightness, 2));
             shade = 100 - value;
             tint = value - saturation;
             break;
         case "saturation":
             saturation = newColorProperty.value;
+            chroma = saturation * lightness / 100;
             break;
         case "value":
             value = newColorProperty.value;
