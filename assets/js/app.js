@@ -4,10 +4,8 @@ SPDX-License-Identifier: MIT
 */
 "use strict";
 import { useReducer } from "https://esm.sh/react"
-import React from "https://esm.sh/react"
-import htm from 'https://unpkg.com/htm?module'
-
-const html = htm.bind(React.createElement);
+import { html } from "./htm.js";
+import { ColorLabel } from "./color-label.js";
 
 const initialColor = {
     hue: 0,
@@ -61,18 +59,6 @@ const colorReducer = (currentColor, newColorProperty) => {
     }
     return { hue: hue, chroma: chroma, lightness: lightness, saturation: saturation, value: value, tint: tint, shade: shade };
 };
-
-function ColorLabel(props) {
-    return html`
-        <label>
-            ${props.name}:
-            <input type="number" value=${props.value} onChange=${(e) => props.changeColorProperty({ key: props.keyName, value: e.target.value })} />
-            <p>
-                ${props.name}: ${props.value}
-            </p>
-        </label>
-    `;
-}
 
 export function App() {
     const [color, changeColorProperty] = useReducer(colorReducer, initialColor);
