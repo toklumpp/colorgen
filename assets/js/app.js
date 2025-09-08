@@ -62,60 +62,27 @@ const colorReducer = (currentColor, newColorProperty) => {
     return { hue: hue, chroma: chroma, lightness: lightness, saturation: saturation, value: value, tint: tint, shade: shade };
 };
 
+function ColorLabel(props) {
+    return html`
+        <label>
+            ${props.name}:
+            <input type="number" value=${props.value} onChange=${(e) => props.changeColorProperty({ key: props.keyName, value: e.target.value })} />
+            <p>
+                ${props.name}: ${props.value}
+            </p>
+        </label>
+    `;
+}
+
 export function App() {
     const [color, changeColorProperty] = useReducer(colorReducer, initialColor);
     return html`
         <form>
             <h1>Color Scheme Generator</h1>
-            <label>
-                Hue:
-                <input type="number" value=${color.hue} onChange=${(e) => changeColorProperty({ key: "hue", value: e.target.value })} />
-                <p>
-                    Hue: ${color.hue}
-                </p>
-            </label>
-            <label>
-                Chroma:
-                <input type="number" value=${color.chroma} onChange=${(e) => changeColorProperty({ key: "chroma", value: e.target.value })} />
-                <p>
-                    Chroma: ${color.chroma}
-                </p>
-            </label>
-            <label>
-                Lightness:
-                <input type="number" value=${color.lightness} onChange=${(e) => changeColorProperty({ key: "lightness", value: e.target.value })} />
-                <p>
-                    Lightness: ${color.lightness}
-                </p>
-            </label>
-            <label>
-                Saturation:
-                <input type="number" value=${color.saturation} onChange=${(e) => changeColorProperty({ key: "saturation", value: e.target.value })} />
-                <p>
-                    Saturation: ${color.saturation}
-                </p>
-            </label>
-            <label>
-                Value:
-                <input type="number" value=${color.value} onChange=${(e) => changeColorProperty({ key: "value", value: e.target.value })} />
-                <p>
-                    Value: ${color.value}
-                </p>
-            </label>
-            <label>
-                Tint:
-                <input type="number" value=${color.tint} onChange=${(e) => changeColorProperty({ key: "tint", value: e.target.value })} />
-                <p>
-                    Tint: ${color.tint}
-                </p>
-            </label>
-            <label>
-                Shade:
-                <input type="number" value=${color.shade} onChange=${(e) => changeColorProperty({ key: "shade", value: e.target.value })} />
-                <p>
-                    Shade: ${color.shade}
-                </p>
-            </label>
+            <${ColorLabel} keyName="hue" value=${color.hue} name="Hue" changeColorProperty=${changeColorProperty}><//>
+            <${ColorLabel} keyName="chroma" value=${color.chroma} name="Chroma" changeColorProperty=${changeColorProperty}><//>
+            <${ColorLabel} keyName="lightness" value=${color.lightness} name="Lightness" changeColorProperty=${changeColorProperty}><//> 
+            <${ColorLabel} keyName="saturation" value=${color.saturation} name="Saturation" changeColorProperty=${changeColorProperty}><//> 
         </form>
     `;
 }
