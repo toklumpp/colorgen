@@ -65,10 +65,10 @@ export function App() {
     return html`
         <form>
             <h1>Color Scheme Generator</h1>
-            <${ColorLabel} keyName="hue" value=${color.hue} name="Hue" changeColorProperty=${changeColorProperty}><//>
-            <${ColorLabel} keyName="chroma" value=${color.chroma} name="Chroma" changeColorProperty=${changeColorProperty}><//>
-            <${ColorLabel} keyName="lightness" value=${color.lightness} name="Lightness" changeColorProperty=${changeColorProperty}><//> 
-            <${ColorLabel} keyName="saturation" value=${color.saturation} name="Saturation" changeColorProperty=${changeColorProperty}><//> 
+            <${ColorLabel} keyName="hue" value=${color.hue} name="Hue" max="360" changeColorProperty=${changeColorProperty}><//>
+            <${ColorLabel} keyName="chroma" value=${color.chroma} name="Chroma" max="100" changeColorProperty=${changeColorProperty}><//>
+            <${ColorLabel} keyName="lightness" value=${color.lightness} name="Lightness" max="100" changeColorProperty=${changeColorProperty}><//> 
+            <${ColorLabel} keyName="saturation" value=${color.saturation} name="Saturation" max="100" changeColorProperty=${changeColorProperty}><//> 
         </form>
     `;
 }

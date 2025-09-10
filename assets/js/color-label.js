@@ -11,9 +11,11 @@ export function ColorLabel(props) {
         <label>
             ${props.name}:
             <input type="number" value=${props.value} onChange=${(e) => props.changeColorProperty({ key: props.keyName, value: e.target.value })} />
+            <input type="range" class="form-range" value=${props.value} step=${props.max / 100} min="0" max=${props.max} onChange=${(e) => props.changeColorProperty({ key: props.keyName, value: e.target.value })} />
             <p>
                 ${props.name}: ${props.value}
             </p>
         </label>
+        <br />
     `;
 }
